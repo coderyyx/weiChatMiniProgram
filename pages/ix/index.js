@@ -108,18 +108,49 @@ Page({
   onPullDownRefresh () {
     
   },
-
+  previewPic(e){
+    let src=e.currentTarget.dataset.src;
+    wx.previewImage({
+      current: src, // 当前显示图片的http链接
+      urls: [src] // 需要预览的图片http链接列表
+    })
+  },
   showPicList(imgUrl){
     let list = this.data.picList ;
     let obj = {
       id: list.length+1,
       imgUrl: imgUrl,
-      iconUrl: "http://qty83k.creatby.com/materials/origin/a67f2e79e6ed8ae5bf46237d4f88a4e7_origin.png",
+      iconUrl: "http://qty83k.creatby.com/materials/origin/c5656ef00d38d89eae437c5a9102f8fa_origin.png",
       numbers: 0,
       date: util.formatTimeymd(new Date())
     }
     list.push(obj);
     this.setData({picList:list});
+  },
+  uploadFile(filePath){
+    let that = this;
+    
+    wx.uploadFile({
+      url: config.service.uploadUrl, //腾讯云
+      filePath: filePath,
+      name: 'file',
+      formData: {
+        'user': 'test'
+      },
+      success: function (res) {
+        if (!res.statusCode || res.statusCode != 200)
+          return;
+        
+        let data = res.data;
+        let url = JSON.parse(data);
+        let imgUrl = url.data.imgUrl;
+        that.showPicList(imgUrl);
+        //do something
+      },
+      fail: function (errMsg) {
+        console.log('uploadImage fail, errMsg is', errMsg)
+      }
+    })
   },
   //以下为自定义点击事件
   showPic(){
@@ -136,30 +167,15 @@ Page({
           icon: "loading",
           duration: 2000
         })
-        wx.uploadFile({
-          url: config.service.uploadUrl, //腾讯云
-          filePath: tempFilePaths[0],
-          name: 'file',
-          formData: {
-            'user': 'test'
-          },
-          success: function (res) {
-            if(!res.statusCode || res.statusCode!=200)
-                return ;
-            wx.showToast({
-              title: '上传成功',
-              icon: 'success',
-              duration: 2000
-            })
-            var data = res.data;
-            let url=JSON.parse(data);
-            let imgUrl=url.data.imgUrl;
-            that.showPicList(imgUrl);
-                        //do something
-          },
-          fail: function ( errMsg ) {
-            console.log('uploadImage fail, errMsg is', errMsg)
-          }
+        
+        for (let i = 0; i < tempFilePaths.length;i++){
+          that.uploadFile(tempFilePaths[i]);
+        }
+
+        wx.showToast({
+          title: '上传成功',
+          icon: 'success',
+          duration: 2000
         })
       }
     })
