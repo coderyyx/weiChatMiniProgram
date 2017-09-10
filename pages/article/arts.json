@@ -1,0 +1,5 @@
+{
+  "navigationBarTitleText": "测试 下拉 & 带参跳转",
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark"
+}

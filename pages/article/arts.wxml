@@ -1,0 +1,11 @@
+<import src="../common/head.wxml"/>
+<!-- <template is="head" data="{{title: 'on/stopPullDownRefresh'}}"/> -->
+<view class="arts-con">
+  
+  <block wx:for="{{list}}" wx:for-item="item" wx:key="{{item.id}}">
+    <view class='arts-v' bindtap='readDetails' data-title="{{item.title}}" data-descp="{{item.descp?item.descp:''}}">
+      <view class='arts-title'>{{index+1}}.{{item.title}}</view>
+      <text class='arts-descp'>{{item.descp}}</text>
+    </view>
+  </block>
+</view>

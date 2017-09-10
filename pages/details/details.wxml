@@ -1,0 +1,5 @@
+<view class="container">
+    <view class='arts-v' >
+      <text class='arts-descp'>{{descp}}</text>
+    </view>
+</view>

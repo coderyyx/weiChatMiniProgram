@@ -1,0 +1,27 @@
+.arts-v{
+  margin: 15px;
+  padding: 10px;
+  border: 1px solid gray;
+  border-radius: 4px;
+}
+
+.arts-title{
+  font-size: 15px;
+  border-bottom: 1px salmon groove;
+  padding-bottom: 5px;
+}
+
+.arts-descp{
+  font-size: 12px;
+}
+
+.arts-con{
+  /* height:100%; */
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+  justify-content:flex-end;
+  padding-bottom:200rpx;
+  box-sizing:border-box;
+
+}
