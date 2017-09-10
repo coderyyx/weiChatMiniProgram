@@ -9,6 +9,13 @@ const formatTime = date => {
   return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
 
+const formatTimeymd = date => {
+  const year = date.getFullYear()
+  const month = date.getMonth() + 1
+  const day = date.getDate()
+  return [year, month, day].map(formatNumber).join('.')
+}
+
 const getParams = obj => {
   let params="";
   let i = 0;
@@ -27,5 +34,6 @@ const formatNumber = n => {
 
 module.exports = {
   formatTime : formatTime,
-  getParams : getParams
+  getParams : getParams,
+  formatTimeymd : formatTimeymd
 }

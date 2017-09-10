@@ -1,3 +1,5 @@
+import { config } from './config.js';
+
 //app.js
 var coolsite360 = require('./pages/coolsite/index.js');
 App({
@@ -11,7 +13,23 @@ App({
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
-        console.log(res)
+        console.log(res);
+        //换取openId
+        wx.request({
+          url: config.service.requestUrl,
+          data: {
+            code: res.code
+          },
+          success: function (res) {
+            console.log('拉取openid成功', res)
+            // self.globalData.openid = res.data.openid
+            // callback(null, self.globalData.openid)
+          },
+          fail: function (res) {
+            console.log('拉取用户openid失败，将无法正常使用开放接口等服务', res)
+            callback(res)
+          }
+        })
       },
       fail: error => {
         console.log(error)
